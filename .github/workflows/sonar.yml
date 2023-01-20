@@ -20,7 +20,8 @@ jobs:
         uses: SonarSource/sonarcloud-github-c-cpp@v1
       - name: Run cmake
         run: |
-          sudo apt install ninja-build
+          sudo apt install ninja-build g++=9
+          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 9
           mkdir build && cd build
           cmake .. -GNinja -DINDICATORS_SAMPLES=ON -DINDICATORS_DEMO=ON
       - name: Run build-wrapper
