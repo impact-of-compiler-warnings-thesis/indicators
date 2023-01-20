@@ -23,7 +23,7 @@ jobs:
           sudo apt install ninja-build g++-9
           sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 9
           mkdir build && cd build
-          cmake .. -GNinja -DINDICATORS_SAMPLES=ON -DINDICATORS_DEMO=ON
+          cmake .. -GNinja -DINDICATORS_SAMPLES=ON -DINDICATORS_DEMO=ON -DCMAKE_CXX_STANDARD=11
       - name: Run build-wrapper
         run: |
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} ninja -C build
