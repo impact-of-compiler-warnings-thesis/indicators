@@ -9,6 +9,7 @@
 #endif
 #endif
 #include <cstdlib>
+#include <codecvt>
 #include <locale>
 #include <string>
 #include <wchar.h>

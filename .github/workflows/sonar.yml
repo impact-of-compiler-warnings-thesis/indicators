@@ -18,12 +18,20 @@ jobs:
           submodules: recursive
       - name: Install sonar-scanner and build-wrapper
         uses: SonarSource/sonarcloud-github-c-cpp@v1
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install ninja-build gcc-9 g++-9
       - name: Run cmake
         run: |
-          sudo apt install ninja-build g++-9
-          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 9
           mkdir build && cd build
-          cmake .. -GNinja -DINDICATORS_SAMPLES=ON -DINDICATORS_DEMO=ON -DCMAKE_CXX_STANDARD=11
+          cmake .. -GNinja \
+                   -DCMAKE_C_COMPILER=gcc-9 \
+                   -DCMAKE_CXX_COMPILER=g++-9 \
+                   -DCMAKE_BUILD_TYPE=Debug \
+                   -DINDICATORS_SAMPLES=ON \
+                   -DINDICATORS_DEMO=ON \
+                   -DINDICATORS_BUILD_TESTS=ON
       - name: Run build-wrapper
         run: |
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} ninja -C build
